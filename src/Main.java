@@ -83,6 +83,8 @@ public class Main {
 //                    }
 //                }
 
+
+
                 // Após o primeiro round verifica se a Primeira Letra do Jogador 1 é válida
                 if (round > 1) {
                     if (letraValida != primeiraLetraJogador1) {
