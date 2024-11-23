@@ -64,7 +64,6 @@ public class Main {
             }
             System.out.println("Jogo Iniciado:");
             System.out.println();
-
             do {
                 System.out.printf(ANSI_BLUE + "ROUND %d%n" + ANSI_RESET, round);
 
@@ -113,6 +112,28 @@ public class Main {
                     letraValida = ultimaLetraJogador1;
                 }
 
+//                if (palavraValida) {
+//                    if (round > 1) {
+//                        if (primeiraLetraJogador1 == ultimaLetraJogador2) {
+//                            letraValida = ultimaLetraJogador1;
+//                        } else if (letraValida == primeiraLetraJogador1) {
+//                            letraValida = ultimaLetraJogador1;
+//                            System.out.println("Deu certo!");
+//                        } else if (primeiraLetraJogador1 != ultimaLetraJogador2) {
+//                            letraValida = ultimaLetraJogador2;
+//                        }
+//                    } else {
+//                        letraValida = ultimaLetraJogador1;
+//                    }
+//                }
+
+//            } else if (letraValida != primeiraLetraJogador1) {
+//                letraValida = letraValida;
+
+
+//                if (palavraValida) {
+//                    palavrasUsadas.add(palavraJogador1);
+//                }
 
                 System.out.println(palavrasUsadas);
                 // Após a Primeira Rodada verifica se a palavra do P1 corresponde com a do P2
@@ -163,6 +184,36 @@ public class Main {
                     letraValida = ultimaLetraJogador2;
                 }
 
+//                if (palavraValida) {
+//                    if (ultimaLetraJogador1 == primeiraLetraJogador2) {
+//                        letraValida = ultimaLetraJogador2;
+//                    } else if (letraValida == primeiraLetraJogador2) {
+//                        letraValida = ultimaLetraJogador2;
+//                    } else if (ultimaLetraJogador1 != primeiraLetraJogador2) {
+//                        letraValida = ultimaLetraJogador1;
+//                    }
+//                }
+
+//              Verifica se já existe
+
+//                    if (palavraValida) {
+//                        palavrasUsadas.add(palavraJogador2);
+//                    }
+
+//                if (palavraValida) {
+//                    letraValida = ultimaLetraJogador2;
+//                } else if (letraValida != primeiraLetraJogador2) {
+//
+//                } else {
+//                    letraValida = ultimaLetraJogador1;
+//                }
+
+
+//                if (ultimaLetraJogador1 != primeiraLetraJogador2) {
+//                    System.out.printf("Palavras não correspondem " + ANSI_RED + "%s PERDEU 2 PONTOS!%n" + ANSI_RESET, jogador2);
+//                    palavraValida = false;
+//                    pontosJogador2 -= 2;
+//                }
 
                 System.out.printf(ANSI_PURPLE + "PONTUAÇÃO:" + ANSI_RESET);
                 System.out.printf(ANSI_CYAN + "%n%s\t" + ANSI_RESET + "Sua Pontuação: %d%n", jogador1, pontosJogador1);
