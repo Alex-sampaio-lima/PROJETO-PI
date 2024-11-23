@@ -64,6 +64,7 @@ public class Main {
             }
             System.out.println("Jogo Iniciado:");
             System.out.println();
+
             do {
                 System.out.printf(ANSI_BLUE + "ROUND %d%n" + ANSI_RESET, round);
 
@@ -112,28 +113,6 @@ public class Main {
                     letraValida = ultimaLetraJogador1;
                 }
 
-//                if (palavraValida) {
-//                    if (round > 1) {
-//                        if (primeiraLetraJogador1 == ultimaLetraJogador2) {
-//                            letraValida = ultimaLetraJogador1;
-//                        } else if (letraValida == primeiraLetraJogador1) {
-//                            letraValida = ultimaLetraJogador1;
-//                            System.out.println("Deu certo!");
-//                        } else if (primeiraLetraJogador1 != ultimaLetraJogador2) {
-//                            letraValida = ultimaLetraJogador2;
-//                        }
-//                    } else {
-//                        letraValida = ultimaLetraJogador1;
-//                    }
-//                }
-
-//            } else if (letraValida != primeiraLetraJogador1) {
-//                letraValida = letraValida;
-
-
-//                if (palavraValida) {
-//                    palavrasUsadas.add(palavraJogador1);
-//                }
 
                 System.out.println(palavrasUsadas);
                 // Após a Primeira Rodada verifica se a palavra do P1 corresponde com a do P2
