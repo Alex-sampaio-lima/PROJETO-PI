@@ -36,8 +36,17 @@ public class Main {
         int menu = 1, pontosJogador1 = 5, pontosJogador2 = 5, round = 1;
         boolean palavraValida = true;
 
+<<<<<<< Updated upstream
         jogador1 = jogadores(jogador1);
         jogador2 = jogadores2(jogador2);
+=======
+        System.out.println(ANSI_CYAN + "Seja Bem Vindo Ao Jogo Das Palavras: " + ANSI_RESET);
+
+        Tela.escrever("Nome do Jogador 1: ");
+        jogador1 = read.nextLine();
+        Tela.escrever("Nome do Jogador 2: ");
+        jogador2 = read.nextLine();
+>>>>>>> Stashed changes
 
         do {
             Tela.escrever("[1] - Digite 1 para Começar o jogo.");
@@ -143,14 +152,22 @@ public class Main {
                     letraValida = ultimaLetraJogador2;
                 }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
                 System.out.printf(ANSI_PURPLE + "PONTUAÇÃO:" + ANSI_RESET);
                 System.out.printf(ANSI_CYAN + "%n%s\t" + ANSI_RESET + "Sua Pontuação: %d%n", jogador1, pontosJogador1);
                 System.out.printf(ANSI_CYAN + "%s\t" + ANSI_RESET + "Sua Pontuação: %d%n%n", jogador2, pontosJogador2);
                 System.out.printf(ANSI_CYAN + "Letra da vez = %s%n", letraValida);
                 round++;
             } while (pontosJogador1 >= 0 && pontosJogador2 >= 0);
+<<<<<<< Updated upstream
 
           /*  if (pontosJogador1 > pontosJogador2) {
+=======
+            if (pontosJogador1 > pontosJogador2) {
+>>>>>>> Stashed changes
                 System.out.printf(ANSI_CYAN + "PARÁBENS %s VOCÊ VENCEU!" + ANSI_RESET, jogador1);
             } else {
                 System.out.printf(ANSI_CYAN + "PARÁBENS %s VOCÊ VENCEU!" + ANSI_RESET, jogador2);
