@@ -24,9 +24,10 @@ public class Main {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
+    public static Scanner read = new Scanner(System.in);
+
     public static void main(String[] args) {
 
-        Scanner read = new Scanner(System.in);
 
         String jogador1 = "", jogador2 = "";
         Set<String> palavrasUsadas = new HashSet<>();
@@ -35,34 +36,30 @@ public class Main {
         int menu = 1, pontosJogador1 = 5, pontosJogador2 = 5, round = 1;
         boolean palavraValida = true;
 
-        System.out.println(ANSI_CYAN + "Seja Bem Vindo Ao Jogo Das Palavras: " + ANSI_RESET);
-
-        Tela.escrever("Nome do Jogador 1: ");
-        jogador1 = read.nextLine();
-        Tela.escrever("Nome do Jogador 2: ");
-       jogador2 = read.nextLine();
+        jogador1 = jogadores(jogador1);
+        jogador2 = jogadores2(jogador2);
 
         do {
-            System.out.println("[1] - Digite 1 para Começar o jogo.");
-            System.out.println("[2] - Digite 2 para ver as regras do jogo.");
-            System.out.println("[0] - Digite 0 para Encerrar o jogo.");
+            Tela.escrever("[1] - Digite 1 para Começar o jogo.");
+            Tela.escrever("[2] - Digite 2 para ver as regras do jogo.");
+            Tela.escrever("[0] - Digite 0 para Encerrar o jogo.");
             menu = read.nextInt();
             read.nextLine();
 
             if (menu == 0) {
                 break;
             } else if (menu == 2) {
-                System.out.println(ANSI_CYAN + "Regras Do Jogo Das Palavras: " + ANSI_RESET);
-                System.out.println("1. Os jogadores se revezam para dizer uma palavra.");
-                System.out.println("2. O primeiro jogador irá digitar uma palavra, o segundo jogador terá que digitar uma outra palavara que comece com a última letra da palavra do primeiro jogador.\n" + ANSI_BLACK_BACKGROUND + ANSI_CYAN + "EXEMPLO:" + ANSI_RESET + ANSI_CYAN + "\nJogador 1: Posta" + ANSI_RESET + ANSI_CYAN + "\nJogador 2: Alface" + ANSI_RESET);
-                System.out.println("3. As palavras não podem ser repetidas.");
-                System.out.println("4. Cada jogador irá começar com 5 pontos.");
-                System.out.println("5. O jogo termina quando um dos jogadores não tiver mais pontos.");
-                System.out.println("Presione Enter para continuar...");
+                Tela.escrever(ANSI_CYAN + "Regras Do Jogo Das Palavras: " + ANSI_RESET);
+                Tela.escrever("1. Os jogadores se revezam para dizer uma palavra.");
+                Tela.escrever("2. O primeiro jogador irá digitar uma palavra, o segundo jogador terá que digitar uma outra palavara que comece com a última letra da palavra do primeiro jogador.\n" + ANSI_BLACK_BACKGROUND + ANSI_CYAN + "EXEMPLO:" + ANSI_RESET + ANSI_CYAN + "\nJogador 1: Posta" + ANSI_RESET + ANSI_CYAN + "\nJogador 2: Alface" + ANSI_RESET);
+                Tela.escrever("3. As palavras não podem ser repetidas.");
+                Tela.escrever("4. Cada jogador irá começar com 5 pontos.");
+                Tela.escrever("5. O jogo termina quando um dos jogadores não tiver mais pontos.");
+                Tela.escrever("Presione Enter para continuar...");
                 read.nextLine();
                 continue;
             }
-            System.out.println("Jogo Iniciado:");
+            Tela.escrever("Jogo Iniciado:");
             System.out.println();
             do {
                 System.out.printf(ANSI_BLUE + "ROUND %d%n" + ANSI_RESET, round);
@@ -72,7 +69,6 @@ public class Main {
                 palavraJogador1 = read.nextLine().toLowerCase();
                 primeiraLetraJogador1 = palavraJogador1.charAt(0);
                 ultimaLetraJogador1 = palavraJogador1.charAt(palavraJogador1.length() - 1);
-
 
 
                 // Após o primeiro round verifica se a Primeira Letra do Jogador 1 é válida
@@ -106,7 +102,6 @@ public class Main {
 
 
                 System.out.println(palavrasUsadas);
-
 
 
                 Tela.escrever("---------------------");
@@ -148,21 +143,20 @@ public class Main {
                     letraValida = ultimaLetraJogador2;
                 }
 
-
-
-
                 System.out.printf(ANSI_PURPLE + "PONTUAÇÃO:" + ANSI_RESET);
                 System.out.printf(ANSI_CYAN + "%n%s\t" + ANSI_RESET + "Sua Pontuação: %d%n", jogador1, pontosJogador1);
                 System.out.printf(ANSI_CYAN + "%s\t" + ANSI_RESET + "Sua Pontuação: %d%n%n", jogador2, pontosJogador2);
                 System.out.printf(ANSI_CYAN + "Letra da vez = %s%n", letraValida);
                 round++;
-            }
-            while (pontosJogador1 >= 0 && pontosJogador2 >= 0);
-            if (pontosJogador1 > pontosJogador2) {
+            } while (pontosJogador1 >= 0 && pontosJogador2 >= 0);
+
+          /*  if (pontosJogador1 > pontosJogador2) {
                 System.out.printf(ANSI_CYAN + "PARÁBENS %s VOCÊ VENCEU!" + ANSI_RESET, jogador1);
             } else {
                 System.out.printf(ANSI_CYAN + "PARÁBENS %s VOCÊ VENCEU!" + ANSI_RESET, jogador2);
-            }
+            }*/
+            campeao(pontosJogador1, pontosJogador2, jogador1, jogador2);
+
             break;
         } while (menu != 0);
         if (menu == 0) {
@@ -171,100 +165,32 @@ public class Main {
 
     }
 
-    public int campeao(int x, int y) {
+    public static void campeao(int pontosJogador1, int pontosJogador2, String jogador1, String jogador2) {
 
-        return 1;
+        if (pontosJogador1 > pontosJogador2) {
+            System.out.printf(ANSI_CYAN + "PARÁBENS %s VOCÊ VENCEU!" + ANSI_RESET, jogador1);
+        } else {
+            System.out.printf(ANSI_CYAN + "PARÁBENS %s VOCÊ VENCEU!" + ANSI_RESET, jogador2);
+        }
     }
 
-    public static String[] getFrutas() {
-        return new String[]{
-                // Frutas com A
-                "Abacate", "Abacaxi", "Abiu", "Abricó", "Abrunho",
-                "Açaí", "Acerola", "Akee", "Alfarroba", "Ameixa",
-                "Amêndoa", "Amora", "Ananás", "Anona", "Araçá",
-                "Arando", "Araticum", "Ata", "Atemoia", "Avelã",
-                // Frutas com B
-                "Babaco", "Babaçu", "Bacaba", "Bacuri", "Bacupari",
-                "Banana", "Baru", "Bergamota", "Biribá", "Buriti",
-                "Butiá",
-                // Frutas com C
-                "Cabeludinha", "Cacau", "Cagaita", "Caimito", "Cajá",
-                "Caju", "Calabaça", "Calabura", "Calamondin", "Cambucá",
-                "Cambuci", "Camu-camu", "Caqui", "Carambola", "Carnaúba",
-                "Castanha", "Castanha-do-pará", "Cereja", "Ciriguela",
-                "Ciruela", "Coco", "Cranberry", "Cupuaçu",
-                // Frutas com D
-                "Damasco", "Dekopon", "Dendê", "Dióspiro", "Dovyalis",
-                "Durião",
-                // Frutas com E
-                "Embaúba", "Embaubarana", "Engkala", "Escropari",
-                "Esfregadinha", "Esporão-de-galo",
-                // Frutas com F
-                "Figo", "Framboesa", "Fruta-do-conde", "Fruta-pão",
-                "Feijoa", "Figo-da-índia", "Fruta-de-cedro",
-                "Fruta-de-lobo", "Fruta-do-milagre", "Fruta-de-tatu",
-                // Frutas com G
-                "Gabiroba", "Glicosmis", "Goiaba", "Granadilla",
-                "Gravatá", "Graviola", "Groselha", "Grumixama",
-                "Guabiju", "Guabiroba", "Guaraná",
-                // Frutas com H
-                "Hawthorn", "Heisteria", "Hilocéreo",
-                // Frutas com I
-                "Ibacurupari", "Ilama", "Imbe", "Imbu", "Inajá",
-                "Ingá", "Inharé",
-                // Frutas com J
-                "Jabuticaba", "Jaca", "Jambo", "Jambolão",
-                "Jamelão", "Jaracatiá", "Jatobá", "Jenipapo",
-                "Jerivá", "Juá", "Jujuba",
-                // Frutas com K
-                "Kiwi", "Kumquat", "Kinkan", "Kino", "Kiwano",
-                "Kabosu", "Karité", "Korlan",
-                // Frutas com L
-                "Laranja", "Limão", "Lima", "Lichia", "Longan",
-                "Lucuma", "Lacucha", "Lulo", "Lobeira",
-                "Langsat", "Laranja-de-pacu",
-                // Frutas com M
-                "Mabolo", "Maçã", "Macadâmia", "Macaúba", "Mamão",
-                "Mamey", "Mamoncillo", "Maná-cubiu", "Manga",
-                "Mangaba", "Mangostão", "Maracujá", "Marang",
-                "Marmelo", "Marolo", "Marula", "Massala",
-                "Melancia", "Melão", "Meloa", "Mexerica",
-                "Mirtilo", "Morango", "Murici",
-                // Frutas com N
-                "Naranjilla", "Nectarina", "Nêspera", "Noni",
-                "Noz", "Noz-pecã", "Noz-macadâmia",
-                // Frutas com O
-                "Oiti", "Oxicoco", "Orangelo",
-                // Frutas com P
-                "Pera", "Pêssego", "Pitanga", "Pinha", "Pitaia",
-                "Pitomba", "Pitangatuba", "Pindaíba", "Pequi",
-                "Pequiá", "Physalis", "Pulasan", "Pomelo",
-                "Pupunha", "Puçá", "Patauá", "Pajurá",
-                "Pixirica", "Pistache",
-                // Frutas com Q
-                "Quina", "Quiuí", "Quixabeira",
-                // Frutas com R
-                "Romã", "Rambai", "Rambutão", "Rukam",
-                // Frutas com S
-                "Saguaraji", "Salak", "Santol", "Sapota", "Sapoti",
-                "Sapucaia", "Saputá", "Seriguela", "Sorvinha",
-                // Frutas com T
-                "Tangerina", "Tamarindo", "Tâmara", "Toranja",
-                "Tucumã", "Taiuva", "Tapiá", "Tarumã",
-                "Tangor", "Tucujá",
-                // Frutas com U
-                "Uva", "Umbu", "Uvaia", "Uchuva", "Umê",
-                "Uxi", "Ucuuba",
-                // Frutas com V
-                "Vacínio", "Veludo", "Vergamota", "Veludo-branco",
-                // Frutas com W
-                "Wampi",
-                // Frutas com X
-                "Xixá",
-                // Frutas com Y
-                "Yamamomo", "Yuzu",
-                // Frutas com Z
-                "Zimbro"
-        };
+    public static String jogadores(String jogador1) {
+
+        Tela.escrever(ANSI_CYAN + "Seja Bem Vindo Ao Jogo Das Palavras: " + ANSI_RESET);
+        Tela.escrever("Nome do Jogador 1:");
+        jogador1 = read.nextLine();
+
+        return jogador1;
     }
+
+    public static String jogadores2(String jogador2) {
+
+        Tela.escrever(ANSI_CYAN + "Seja Bem Vindo Ao Jogo Das Palavras: " + ANSI_RESET);
+        Tela.escrever("Nome do Jogador 2 :");
+        jogador2 = read.nextLine();
+
+        return jogador2;
+    }
+
+
 }
