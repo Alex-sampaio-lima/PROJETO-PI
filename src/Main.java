@@ -26,12 +26,10 @@ public class Main {
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     public static Scanner read = new Scanner(System.in);
-
     public static int pontosJogador1 = 5, pontosJogador2 = 5;
 
     public static void main(String[] args) {
-
-
+        
         String jogador1 = "Alek", jogador2 = "Luca";
         Set<String> palavrasUsadas = new HashSet<>();
         String palavraJogador1 = "", palavraJogador2 = "";
