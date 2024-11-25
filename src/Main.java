@@ -27,7 +27,7 @@ public class Main {
     public static int pontosJogador1 = 5, pontosJogador2 = 5;
 
     public static void main(String[] args) {
-        String jogador1 = "Alek", jogador2 = "Luca";
+        String jogador1 = "", jogador2 = "";
         Set<String> palavrasUsadas = new HashSet<>();
         String palavraJogador1 = "", palavraJogador2 = "";
         char ultimaLetraJogador1 = ' ', primeiraLetraJogador1 = ' ', ultimaLetraJogador2 = ' ', primeiraLetraJogador2 = ' ', letraValida = ' ';
@@ -64,7 +64,6 @@ public class Main {
             Tela.escrever("Jogo Iniciado :");
             System.out.println();
 
-
             do {
                 if (round == 10) {
                     tempoJogando -= 5;
@@ -76,7 +75,7 @@ public class Main {
                 System.out.printf(ANSI_BLUE + "ROUND %d%n" + ANSI_RESET, round);
 
                 // Inicializa a hora de início para o jogador 1
-                long horaInicial = System.currentTimeMillis(); // Marca o início do tempo para o jogador 1
+                long horaInicial = System.currentTimeMillis();
 
                 // Jogador 1
                 System.out.printf(ANSI_GREEN + "%s " + ANSI_RESET + "sua vez de jogar!%nDigite uma palavra: ", jogador1);
@@ -128,7 +127,7 @@ public class Main {
                 System.out.printf(ANSI_CYAN + "Letra da vez = %s%n" + ANSI_RESET, letraValida);
 
                 // Inicializa a hora de início para o jogador 2
-                long horaInicialJogador2 = System.currentTimeMillis(); // Marca o início do tempo para o jogador 2
+                long horaInicialJogador2 = System.currentTimeMillis();
 
                 // Jogador 2
                 System.out.printf(ANSI_GREEN + "%s " + ANSI_RESET + "sua vez jogar!%nDigite uma palavra: ", jogador2);
@@ -167,7 +166,7 @@ public class Main {
 
                 // Calcular o tempo do jogador 2
                 long horaFinalJogador2 = System.currentTimeMillis();
-                long diferencaJogador2 = (horaFinalJogador2 - horaInicialJogador2) / 1000; // Tempo em segundos
+                long diferencaJogador2 = (horaFinalJogador2 - horaInicialJogador2) / 1000;
 
                 if (diferencaJogador2 > tempoJogando) {
                     System.out.printf(ANSI_RED + "%s PERDEU 1 PONTO" + ANSI_RESET + ", pois ultrapassou o tempo de %d segundos, usando %d segundos para digitar.%n", jogador2, tempoJogando, diferencaJogador2);
@@ -217,11 +216,11 @@ public class Main {
         return jogador2;
     }
 
-    // Método que realiza a validação da palavra do jogador
+    // Metodo que realiza a validação da palavra do jogador
     public static String obterPalavraValida() {
         String palavra;
         while (true) {
-            palavra = read.nextLine().toLowerCase().trim();  // .trim() para remover espaços extras
+            palavra = read.nextLine().toLowerCase().trim();
 
             // Verificar se a palavra está vazia
             if (palavra.isEmpty()) {
@@ -234,7 +233,8 @@ public class Main {
             boolean temNumeroOuEspaco = false;
             for (int i = 0; i < palavra.length(); i++) {
                 char c = palavra.charAt(i);
-                if (!Character.isLetter(c)) {  // Se não for uma letra, ou seja, se for número ou espaço
+                // Se não for uma letra, ou seja, se for número ou espaço
+                if (!Character.isLetter(c)) {
                     temNumeroOuEspaco = true;
                     break;
                 }
@@ -244,7 +244,8 @@ public class Main {
                 System.out.println(ANSI_RED + "ERRO: A palavra deve conter apenas letras. Números ou espaços " +
                         "não são permitidos." + ANSI_RESET);
                 System.out.print("Digite uma palavra: ");
-                continue;  // Continua pedindo uma palavra válida
+                // Continua pedindo uma palavra válida
+                continue;
             }
 
             // Se a palavra for válida, retorna a palavra
