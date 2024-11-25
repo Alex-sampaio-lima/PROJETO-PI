@@ -1,11 +1,9 @@
-import org.w3c.dom.ls.LSOutput;
-
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
 public class Main {
+
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -29,14 +27,13 @@ public class Main {
     public static int pontosJogador1 = 5, pontosJogador2 = 5;
 
     public static void main(String[] args) {
-        
         String jogador1 = "Alek", jogador2 = "Luca";
         Set<String> palavrasUsadas = new HashSet<>();
         String palavraJogador1 = "", palavraJogador2 = "";
         char ultimaLetraJogador1 = ' ', primeiraLetraJogador1 = ' ', ultimaLetraJogador2 = ' ', primeiraLetraJogador2 = ' ', letraValida = ' ';
         int menu = 1, round = 1;
+        long tempoJogando = 20;
         boolean palavraValida = true;
-
 
         System.out.println(ANSI_CYAN + "Seja Bem Vindo Ao Jogo Das Palavras: " + ANSI_RESET);
 
@@ -67,16 +64,25 @@ public class Main {
             Tela.escrever("Jogo Iniciado :");
             System.out.println();
 
+
             do {
+                if (round == 10) {
+                    tempoJogando -= 5;
+                }
+                if (round == 20) {
+                    tempoJogando -= 5;
+                }
+                System.out.println(ANSI_RESET + "Você tem segundos " + tempoJogando + " para jogar!");
                 System.out.printf(ANSI_BLUE + "ROUND %d%n" + ANSI_RESET, round);
+
+                // Inicializa a hora de início para o jogador 1
+                long horaInicial = System.currentTimeMillis(); // Marca o início do tempo para o jogador 1
 
                 // Jogador 1
                 System.out.printf(ANSI_GREEN + "%s " + ANSI_RESET + "sua vez de jogar!%nDigite uma palavra: ", jogador1);
-                long horaInicial = System.currentTimeMillis();
-                palavraJogador1 = read.nextLine().toLowerCase();
+                palavraJogador1 = obterPalavraValida();
                 primeiraLetraJogador1 = palavraJogador1.charAt(0);
                 ultimaLetraJogador1 = palavraJogador1.charAt(palavraJogador1.length() - 1);
-
 
                 // Após o primeiro round verifica se a Primeira Letra do Jogador 1 é válida
                 if (round > 1) {
@@ -107,11 +113,12 @@ public class Main {
                     letraValida = ultimaLetraJogador1;
                 }
 
+                // Calcular o tempo do jogador 1
                 long horaFinal = System.currentTimeMillis();
-                long diferenca = (horaFinal - horaInicial) / 1000;
+                long diferenca = (horaFinal - horaInicial) / 1000; // Tempo em segundos
 
-                if (diferenca > 20) {
-                    System.out.printf(ANSI_RED + "%s PERDEU 1 PONTO" + ANSI_RESET + ", ultrapassou o tempo, usando % d segundos para digitar.%n", jogador1, diferenca);
+                if (diferenca > tempoJogando) {
+                    System.out.printf(ANSI_RED + "%s PERDEU 1 PONTO" + ANSI_RESET + ", ultrapassou o tempo de %d segundos, usando %d segundos para digitar.%n", jogador1, tempoJogando, diferenca);
                     pontosJogador1--;
                 } else {
                     System.out.printf(ANSI_GREEN + "%s" + ANSI_RESET + " demorou %d segundos para digitar.%n", jogador1, diferenca);
@@ -120,14 +127,16 @@ public class Main {
                 Tela.escrever("---------------------");
                 System.out.printf(ANSI_CYAN + "Letra da vez = %s%n" + ANSI_RESET, letraValida);
 
+                // Inicializa a hora de início para o jogador 2
+                long horaInicialJogador2 = System.currentTimeMillis(); // Marca o início do tempo para o jogador 2
+
                 // Jogador 2
                 System.out.printf(ANSI_GREEN + "%s " + ANSI_RESET + "sua vez jogar!%nDigite uma palavra: ", jogador2);
-                long horaInicialJogador2 = System.currentTimeMillis();
-                palavraJogador2 = read.nextLine().toLowerCase();
+                palavraJogador2 = obterPalavraValida();
                 primeiraLetraJogador2 = palavraJogador2.charAt(0);
                 ultimaLetraJogador2 = palavraJogador2.charAt(palavraJogador2.length() - 1);
 
-                // Verificar se a ultima letra do P1 é difente da primeira letra do P2
+                // Verificar se a ultima letra do P1 é diferente da primeira letra do P2
                 if (letraValida != primeiraLetraJogador2) {
                     System.out.printf("Palavras não correspondem " + ANSI_RED + "%s PERDEU 2 PONTOS!%n" + ANSI_RESET, jogador2);
                     palavraValida = false;
@@ -156,11 +165,12 @@ public class Main {
                     letraValida = ultimaLetraJogador2;
                 }
 
+                // Calcular o tempo do jogador 2
                 long horaFinalJogador2 = System.currentTimeMillis();
-                long diferencaJogador2 = (horaFinalJogador2 - horaInicialJogador2) / 1000;
+                long diferencaJogador2 = (horaFinalJogador2 - horaInicialJogador2) / 1000; // Tempo em segundos
 
-                if (diferencaJogador2 > 20) {
-                    System.out.printf(ANSI_RED + "%s PERDEU 1 PONTO" + ANSI_RESET + ", pois ultrapassou o tempo, usando % d segundos para digitar.%n", jogador2, diferencaJogador2);
+                if (diferencaJogador2 > tempoJogando) {
+                    System.out.printf(ANSI_RED + "%s PERDEU 1 PONTO" + ANSI_RESET + ", pois ultrapassou o tempo de %d segundos, usando %d segundos para digitar.%n", jogador2, tempoJogando, diferencaJogador2);
                     pontosJogador2--;
                 } else {
                     System.out.printf(ANSI_GREEN + "%s" + ANSI_RESET + " demorou %d segundos para digitar.%n", jogador2, diferencaJogador2);
@@ -173,7 +183,7 @@ public class Main {
                 System.out.printf(ANSI_CYAN + "Letra da vez = %s%n", letraValida);
                 round++;
 
-            } while (pontosJogador1 >= 0 && pontosJogador2 >= 0);
+            } while (pontosJogador1 > 0 && pontosJogador2 > 0);
 
             campeao(pontosJogador1, pontosJogador2, jogador1, jogador2);
 
@@ -182,8 +192,8 @@ public class Main {
         if (menu == 0) {
             System.out.println(ANSI_BLACK + ANSI_CYAN_BACKGROUND + "JOGO ENCERRADO COM SUCESSO!" + ANSI_RESET);
         }
-
     }
+
 
     public static void campeao(int pontosJogador1, int pontosJogador2, String jogador1, String jogador2) {
         if (pontosJogador1 > pontosJogador2) {
@@ -206,4 +216,40 @@ public class Main {
         jogador2 = read.nextLine();
         return jogador2;
     }
+
+    // Método que realiza a validação da palavra do jogador
+    public static String obterPalavraValida() {
+        String palavra;
+        while (true) {
+            palavra = read.nextLine().toLowerCase().trim();  // .trim() para remover espaços extras
+
+            // Verificar se a palavra está vazia
+            if (palavra.isEmpty()) {
+                System.out.println(ANSI_RED + "ERRO: A palavra não pode ser vazia ou nula." + ANSI_RESET);
+                System.out.print("Digite uma palavra: ");
+                continue;  // Continua pedindo uma palavra válida
+            }
+
+            // Verificar se a palavra contém números ou espaços
+            boolean temNumeroOuEspaco = false;
+            for (int i = 0; i < palavra.length(); i++) {
+                char c = palavra.charAt(i);
+                if (!Character.isLetter(c)) {  // Se não for uma letra, ou seja, se for número ou espaço
+                    temNumeroOuEspaco = true;
+                    break;
+                }
+            }
+
+            if (temNumeroOuEspaco) {
+                System.out.println(ANSI_RED + "ERRO: A palavra deve conter apenas letras. Números ou espaços " +
+                        "não são permitidos." + ANSI_RESET);
+                System.out.print("Digite uma palavra: ");
+                continue;  // Continua pedindo uma palavra válida
+            }
+
+            // Se a palavra for válida, retorna a palavra
+            return palavra;
+        }
+    }
 }
+
