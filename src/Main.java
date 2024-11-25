@@ -1,5 +1,6 @@
 import org.w3c.dom.ls.LSOutput;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -31,16 +32,13 @@ public class Main {
     public static void main(String[] args) {
 
 
-        String jogador1 = "", jogador2 = "";
+        String jogador1 = "Alek", jogador2 = "Luca";
         Set<String> palavrasUsadas = new HashSet<>();
         String palavraJogador1 = "", palavraJogador2 = "";
         char ultimaLetraJogador1 = ' ', primeiraLetraJogador1 = ' ', ultimaLetraJogador2 = ' ', primeiraLetraJogador2 = ' ', letraValida = ' ';
         int menu = 1, round = 1;
         boolean palavraValida = true;
 
-
-        jogador1 = jogadores(jogador1);
-        jogador2 = jogadores2(jogador2);
 
         System.out.println(ANSI_CYAN + "Seja Bem Vindo Ao Jogo Das Palavras: " + ANSI_RESET);
 
@@ -56,7 +54,7 @@ public class Main {
             } else if (menu == 2) {
                 Tela.escrever(ANSI_CYAN + "Regras Do Jogo Das Palavras: " + ANSI_RESET);
                 Tela.escrever("1. Os jogadores se revezam para digitar uma palavra.");
-                Tela.escrever("2. O primeiro jogador irá digitar uma palavra, o segundo jogador terá que digitar uma outra palavara que comece com a última letra da palavra do primeiro jogador.\n" + ANSI_BLACK_BACKGROUND + ANSI_CYAN + "EXEMPLO:" + ANSI_RESET + ANSI_CYAN + "\nJogador 1: Posta" + ANSI_RESET + ANSI_CYAN + "\nJogador 2: Alface" + ANSI_RESET);
+                Tela.escrever("2. O primeiro jogador irá digitar uma palavra, o segundo jogador terá que digitar uma outra palavra que comece com a última letra da palavra do primeiro jogador.\n" + ANSI_BLACK_BACKGROUND + ANSI_CYAN + "EXEMPLO:" + ANSI_RESET + ANSI_CYAN + "\nJogador 1: Posta" + ANSI_RESET + ANSI_CYAN + "\nJogador 2: Alface" + ANSI_RESET);
                 Tela.escrever("3. As palavras não podem ser repetidas.");
                 Tela.escrever("4. Cada jogador irá começar com 5 pontos.");
                 Tela.escrever("5. O jogo termina quando um dos jogadores não tiver mais pontos.");
@@ -65,7 +63,10 @@ public class Main {
                 continue;
             }
 
-            Tela.escrever("Jogo Iniciado:");
+            jogador1 = jogadores(jogador1);
+            jogador2 = jogadores2(jogador2);
+            System.out.println();
+            Tela.escrever("Jogo Iniciado :");
             System.out.println();
 
             do {
@@ -73,6 +74,7 @@ public class Main {
 
                 // Jogador 1
                 System.out.printf(ANSI_GREEN + "%s " + ANSI_RESET + "sua vez de jogar!%nDigite uma palavra: ", jogador1);
+                long horaInicial = System.currentTimeMillis();
                 palavraJogador1 = read.nextLine().toLowerCase();
                 primeiraLetraJogador1 = palavraJogador1.charAt(0);
                 ultimaLetraJogador1 = palavraJogador1.charAt(palavraJogador1.length() - 1);
@@ -107,16 +109,22 @@ public class Main {
                     letraValida = ultimaLetraJogador1;
                 }
 
+                long horaFinal = System.currentTimeMillis();
+                long diferenca = (horaFinal - horaInicial) / 1000;
 
-                System.out.println(palavrasUsadas);
-
+                if (diferenca > 20) {
+                    System.out.printf(ANSI_RED + "%s PERDEU 1 PONTO" + ANSI_RESET + ", ultrapassou o tempo, usando % d segundos para digitar.%n", jogador1, diferenca);
+                    pontosJogador1--;
+                } else {
+                    System.out.printf(ANSI_GREEN + "%s" + ANSI_RESET + " demorou %d segundos para digitar.%n", jogador1, diferenca);
+                }
 
                 Tela.escrever("---------------------");
                 System.out.printf(ANSI_CYAN + "Letra da vez = %s%n" + ANSI_RESET, letraValida);
 
-
                 // Jogador 2
                 System.out.printf(ANSI_GREEN + "%s " + ANSI_RESET + "sua vez jogar!%nDigite uma palavra: ", jogador2);
+                long horaInicialJogador2 = System.currentTimeMillis();
                 palavraJogador2 = read.nextLine().toLowerCase();
                 primeiraLetraJogador2 = palavraJogador2.charAt(0);
                 ultimaLetraJogador2 = palavraJogador2.charAt(palavraJogador2.length() - 1);
@@ -150,6 +158,17 @@ public class Main {
                     letraValida = ultimaLetraJogador2;
                 }
 
+                long horaFinalJogador2 = System.currentTimeMillis();
+                long diferencaJogador2 = (horaFinalJogador2 - horaInicialJogador2) / 1000;
+
+                if (diferencaJogador2 > 20) {
+                    System.out.printf(ANSI_RED + "%s PERDEU 1 PONTO" + ANSI_RESET + ", pois ultrapassou o tempo, usando % d segundos para digitar.%n", jogador2, diferencaJogador2);
+                    pontosJogador2--;
+                } else {
+                    System.out.printf(ANSI_GREEN + "%s" + ANSI_RESET + " demorou %d segundos para digitar.%n", jogador2, diferencaJogador2);
+                }
+
+                System.out.println();
                 System.out.printf(ANSI_PURPLE + "PONTUAÇÃO:" + ANSI_RESET);
                 System.out.printf(ANSI_CYAN + "%n%s\t" + ANSI_RESET + "Sua Pontuação: %d%n", jogador1, pontosJogador1);
                 System.out.printf(ANSI_CYAN + "%s\t" + ANSI_RESET + "Sua Pontuação: %d%n%n", jogador2, pontosJogador2);
@@ -177,14 +196,14 @@ public class Main {
     }
 
     public static String jogadores(String jogador1) {
-        Tela.escrever(ANSI_CYAN + "Seja Bem Vindo Ao Jogo Das Palavras: " + ANSI_RESET);
-        Tela.escrever("Nome do Jogador 1:");
+        Tela.escrever(ANSI_CYAN + "Escolher nome dos jogadores: " + ANSI_RESET);
+        Tela.escrever("Nome do Jogador 1 :");
         jogador1 = read.nextLine();
         return jogador1;
     }
 
     public static String jogadores2(String jogador2) {
-        Tela.escrever(ANSI_CYAN + "Seja Bem Vindo Ao Jogo Das Palavras: " + ANSI_RESET);
+        Tela.escrever(ANSI_CYAN + "Escolher nome dos jogadores: " + ANSI_RESET);
         Tela.escrever("Nome do Jogador 2 :");
         jogador2 = read.nextLine();
         return jogador2;
