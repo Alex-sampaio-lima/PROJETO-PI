@@ -26,6 +26,8 @@ public class Main {
 
     public static Scanner read = new Scanner(System.in);
 
+    public static int pontosJogador1 = 5, pontosJogador2 = 5;
+
     public static void main(String[] args) {
 
 
@@ -33,7 +35,7 @@ public class Main {
         Set<String> palavrasUsadas = new HashSet<>();
         String palavraJogador1 = "", palavraJogador2 = "";
         char ultimaLetraJogador1 = ' ', primeiraLetraJogador1 = ' ', ultimaLetraJogador2 = ' ', primeiraLetraJogador2 = ' ', letraValida = ' ';
-        int menu = 1, pontosJogador1 = 5, pontosJogador2 = 5, round = 1;
+        int menu = 1, round = 1;
         boolean palavraValida = true;
 
 
@@ -42,11 +44,6 @@ public class Main {
 
         System.out.println(ANSI_CYAN + "Seja Bem Vindo Ao Jogo Das Palavras: " + ANSI_RESET);
 
-        Tela.escrever("Nome do Jogador 1: ");
-        jogador1 = read.nextLine();
-        Tela.escrever("Nome do Jogador 2: ");
-        jogador2 = read.nextLine();
-        
         do {
             Tela.escrever("[1] - Digite 1 para Começar o jogo.");
             Tela.escrever("[2] - Digite 2 para ver as regras do jogo.");
@@ -58,7 +55,7 @@ public class Main {
                 break;
             } else if (menu == 2) {
                 Tela.escrever(ANSI_CYAN + "Regras Do Jogo Das Palavras: " + ANSI_RESET);
-                Tela.escrever("1. Os jogadores se revezam para dizer uma palavra.");
+                Tela.escrever("1. Os jogadores se revezam para digitar uma palavra.");
                 Tela.escrever("2. O primeiro jogador irá digitar uma palavra, o segundo jogador terá que digitar uma outra palavara que comece com a última letra da palavra do primeiro jogador.\n" + ANSI_BLACK_BACKGROUND + ANSI_CYAN + "EXEMPLO:" + ANSI_RESET + ANSI_CYAN + "\nJogador 1: Posta" + ANSI_RESET + ANSI_CYAN + "\nJogador 2: Alface" + ANSI_RESET);
                 Tela.escrever("3. As palavras não podem ser repetidas.");
                 Tela.escrever("4. Cada jogador irá começar com 5 pontos.");
@@ -67,8 +64,10 @@ public class Main {
                 read.nextLine();
                 continue;
             }
+
             Tela.escrever("Jogo Iniciado:");
             System.out.println();
+
             do {
                 System.out.printf(ANSI_BLUE + "ROUND %d%n" + ANSI_RESET, round);
 
@@ -151,23 +150,14 @@ public class Main {
                     letraValida = ultimaLetraJogador2;
                 }
 
-
                 System.out.printf(ANSI_PURPLE + "PONTUAÇÃO:" + ANSI_RESET);
                 System.out.printf(ANSI_CYAN + "%n%s\t" + ANSI_RESET + "Sua Pontuação: %d%n", jogador1, pontosJogador1);
                 System.out.printf(ANSI_CYAN + "%s\t" + ANSI_RESET + "Sua Pontuação: %d%n%n", jogador2, pontosJogador2);
                 System.out.printf(ANSI_CYAN + "Letra da vez = %s%n", letraValida);
                 round++;
+
             } while (pontosJogador1 >= 0 && pontosJogador2 >= 0);
 
-
-          /*  if (pontosJogador1 > pontosJogador2) {
-=======
-            if (pontosJogador1 > pontosJogador2) {
->>>>>>> Stashed changes
-                System.out.printf(ANSI_CYAN + "PARÁBENS %s VOCÊ VENCEU!" + ANSI_RESET, jogador1);
-            } else {
-                System.out.printf(ANSI_CYAN + "PARÁBENS %s VOCÊ VENCEU!" + ANSI_RESET, jogador2);
-            }*/
             campeao(pontosJogador1, pontosJogador2, jogador1, jogador2);
 
             break;
@@ -179,7 +169,6 @@ public class Main {
     }
 
     public static void campeao(int pontosJogador1, int pontosJogador2, String jogador1, String jogador2) {
-
         if (pontosJogador1 > pontosJogador2) {
             System.out.printf(ANSI_CYAN + "PARÁBENS %s VOCÊ VENCEU!" + ANSI_RESET, jogador1);
         } else {
@@ -188,22 +177,16 @@ public class Main {
     }
 
     public static String jogadores(String jogador1) {
-
         Tela.escrever(ANSI_CYAN + "Seja Bem Vindo Ao Jogo Das Palavras: " + ANSI_RESET);
         Tela.escrever("Nome do Jogador 1:");
         jogador1 = read.nextLine();
-
         return jogador1;
     }
 
     public static String jogadores2(String jogador2) {
-
         Tela.escrever(ANSI_CYAN + "Seja Bem Vindo Ao Jogo Das Palavras: " + ANSI_RESET);
         Tela.escrever("Nome do Jogador 2 :");
         jogador2 = read.nextLine();
-
         return jogador2;
     }
-
-
 }
